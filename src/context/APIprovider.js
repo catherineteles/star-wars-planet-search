@@ -9,12 +9,31 @@ class APIprovider extends Component {
       planets: [],
       filterByName: { name: '' },
       error: '',
+      column: 'population',
+      comparison: 'maior que',
+      value: '',
+      filterByNumericValues: [],
     };
   }
 
 updateFilter = ({ target }) => {
-  const { value } = target;
-  this.setState({ filterByName: { name: value } });
+  const { value, name } = target;
+  if (name === 'name-filter') {
+    return this.setState({ filterByName: { name: value } });
+  }
+  this.setState({ [name]: value });
+}
+
+updateNumericFilter = () => {
+  const { column, comparison, value } = this.state;
+  const newFilter = {
+    column,
+    comparison,
+    value,
+  };
+  this.setState((state) => ({
+    filterByNumericValues: [...state.filterByNumericValues, newFilter],
+  }));
 }
 
 requestPlanets = async () => {
@@ -32,15 +51,12 @@ requestPlanets = async () => {
 render() {
   const { Provider } = APIcontext;
   const { children } = this.props;
-  const { planets, error, filterByName } = this.state;
   return (
     <Provider
-      value={ {
-        planets,
-        error,
-        filterByName,
+      value={ { ...this.state,
         requestPlanets: this.requestPlanets,
         updateFilter: this.updateFilter,
+        updateNumericFilter: this.updateNumericFilter,
       } }
     >
       {children}

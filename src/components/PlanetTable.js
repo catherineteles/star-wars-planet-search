@@ -6,11 +6,30 @@ function PlanetTable() {
     planets,
     requestPlanets,
     filterByName,
+    filterByNumericValues,
   } = useContext(APIContext);
 
   const handleFilter = (element) => element.name
     .toLowerCase().includes(filterByName.name.toLowerCase());
 
+  const handleNumericFilter = (element) => {
+    if (filterByNumericValues.length !== 0) {
+      const filter = filterByNumericValues[0];
+      if (element[filter.column] === 'unknown') {
+        return false;
+      }
+      if (filter.comparison === 'maior que') {
+        return parseFloat(element[filter.column]) > parseFloat(filter.value);
+      }
+      if (filter.comparison === 'menor que') {
+        return parseFloat(element[filter.column]) < parseFloat(filter.value);
+      }
+      if (filter.comparison === 'igual a') {
+        return parseFloat(element[filter.column]) === parseFloat(filter.value);
+      }
+    }
+    return element;
+  };
   // atualizar os planetas
   useEffect(() => {
     const updatePlanets = async () => {
@@ -41,6 +60,7 @@ function PlanetTable() {
         </thead>
         <tbody>
           {planets.lenght !== 0 && planets.filter(handleFilter)
+            .filter(handleNumericFilter)
             .map((planet, index) => (
               <tr key={ index }>
                 <td>{ planet.name }</td>

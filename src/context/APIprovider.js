@@ -9,8 +9,8 @@ class APIprovider extends Component {
       planets: [],
       filterByName: { name: '' },
       error: '',
-      column: 'population',
-      comparison: 'maior que',
+      column: '',
+      comparison: '',
       value: '',
       filterByNumericValues: [],
     };
@@ -23,6 +23,8 @@ updateFilter = ({ target }) => {
   }
   this.setState({ [name]: value });
 }
+
+clearNumericFilter = () => this.setState({ filterByNumericValues: [] })
 
 updateNumericFilter = () => {
   const { column, comparison, value } = this.state;
@@ -57,6 +59,7 @@ render() {
         requestPlanets: this.requestPlanets,
         updateFilter: this.updateFilter,
         updateNumericFilter: this.updateNumericFilter,
+        clearNumericFilter: this.clearNumericFilter,
       } }
     >
       {children}

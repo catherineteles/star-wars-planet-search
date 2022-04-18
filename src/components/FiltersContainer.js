@@ -7,6 +7,7 @@ function FiltersContainer() {
   const {
     column,
     comparison,
+    clearNumericFilter,
     value,
     filterByName,
     filterByNumericValues,
@@ -67,6 +68,13 @@ function FiltersContainer() {
         data-testid="button-filter"
       >
         Filtrar
+      </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ clearNumericFilter }
+      >
+        Limpar Filtro
       </button>
     </div>
   );

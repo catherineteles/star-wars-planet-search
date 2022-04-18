@@ -12,21 +12,24 @@ function PlanetTable() {
   const handleFilter = (element) => element.name
     .toLowerCase().includes(filterByName.name.toLowerCase());
 
+  const checkFilters = (element, filter) => {
+    if (element[filter.column] === 'unknown') {
+      return false;
+    }
+    if (filter.comparison === 'maior que') {
+      return parseFloat(element[filter.column]) > parseFloat(filter.value);
+    }
+    if (filter.comparison === 'menor que') {
+      return parseFloat(element[filter.column]) < parseFloat(filter.value);
+    }
+    if (filter.comparison === 'igual a') {
+      return parseFloat(element[filter.column]) === parseFloat(filter.value);
+    }
+  };
+
   const handleNumericFilter = (element) => {
     if (filterByNumericValues.length !== 0) {
-      const filter = filterByNumericValues[0];
-      if (element[filter.column] === 'unknown') {
-        return false;
-      }
-      if (filter.comparison === 'maior que') {
-        return parseFloat(element[filter.column]) > parseFloat(filter.value);
-      }
-      if (filter.comparison === 'menor que') {
-        return parseFloat(element[filter.column]) < parseFloat(filter.value);
-      }
-      if (filter.comparison === 'igual a') {
-        return parseFloat(element[filter.column]) === parseFloat(filter.value);
-      }
+      return filterByNumericValues.every((filter) => checkFilters(element, filter));
     }
     return element;
   };

@@ -5,7 +5,11 @@ function PlanetTable() {
   const {
     planets,
     requestPlanets,
+    filterByName,
   } = useContext(APIContext);
+
+  const handleFilter = (element) => element.name
+    .toLowerCase().includes(filterByName.name.toLowerCase());
 
   // atualizar os planetas
   useEffect(() => {
@@ -13,7 +17,6 @@ function PlanetTable() {
       await requestPlanets();
     };
     updatePlanets();
-    console.log(planets);
   }, [requestPlanets]);
 
   return (
@@ -37,23 +40,24 @@ function PlanetTable() {
           </tr>
         </thead>
         <tbody>
-          {planets.lenght !== 0 && planets.map((planet, index) => (
-            <tr key={ index }>
-              <td>{ planet.name }</td>
-              <td>{ planet.rotation_period }</td>
-              <td>{ planet.orbital_period }</td>
-              <td>{ planet.diameter }</td>
-              <td>{ planet.climate }</td>
-              <td>{ planet.gravity }</td>
-              <td>{ planet.terrain }</td>
-              <td>{ planet.surface_water }</td>
-              <td>{ planet.population }</td>
-              <td>{ planet.films }</td>
-              <td>{ planet.created }</td>
-              <td>{ planet.edited }</td>
-              <td>{ planet.url }</td>
-            </tr>
-          ))}
+          {planets.lenght !== 0 && planets.filter(handleFilter)
+            .map((planet, index) => (
+              <tr key={ index }>
+                <td>{ planet.name }</td>
+                <td>{ planet.rotation_period }</td>
+                <td>{ planet.orbital_period }</td>
+                <td>{ planet.diameter }</td>
+                <td>{ planet.climate }</td>
+                <td>{ planet.gravity }</td>
+                <td>{ planet.terrain }</td>
+                <td>{ planet.surface_water }</td>
+                <td>{ planet.population }</td>
+                <td>{ planet.films }</td>
+                <td>{ planet.created }</td>
+                <td>{ planet.edited }</td>
+                <td>{ planet.url }</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </main>

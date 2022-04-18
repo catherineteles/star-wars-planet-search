@@ -7,15 +7,20 @@ class APIprovider extends Component {
     super();
     this.state = {
       planets: [],
+      filterByName: { name: '' },
       error: '',
     };
   }
+
+updateFilter = ({ target }) => {
+  const { value } = target;
+  this.setState({ filterByName: { name: value } });
+}
 
 requestPlanets = async () => {
   try {
     const getPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
     const data = await getPlanets.json();
-    console.log(data.results);
     this.setState({
       planets: data.results,
     });
@@ -27,9 +32,17 @@ requestPlanets = async () => {
 render() {
   const { Provider } = APIcontext;
   const { children } = this.props;
-  const { planets, error } = this.state;
+  const { planets, error, filterByName } = this.state;
   return (
-    <Provider value={ { planets, error, requestPlanets: this.requestPlanets } }>
+    <Provider
+      value={ {
+        planets,
+        error,
+        filterByName,
+        requestPlanets: this.requestPlanets,
+        updateFilter: this.updateFilter,
+      } }
+    >
       {children}
     </Provider>
   );

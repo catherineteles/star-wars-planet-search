@@ -9,9 +9,9 @@ class APIprovider extends Component {
       planets: [],
       filterByName: { name: '' },
       error: '',
-      column: '',
-      comparison: '',
-      value: '',
+      column: 'population',
+      comparison: 'maior que',
+      value: 0,
       filterByNumericValues: [],
     };
   }

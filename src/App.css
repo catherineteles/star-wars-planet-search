@@ -2,40 +2,76 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo-image {
+  margin-left: 40%;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
+table {
+  border-collapse: collapse;
   color: white;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  overflow-x: scroll;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  color: yellow;
+}
+
+tr:hover {
+  color: yellow;
+}
+
+.filters-wrapper {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  margin: auto;
+  width: 80%;
 }
 
-.App-link {
-  color: #61dafb;
+.filters-wrapper input {
+  background-color: #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
-@keyframes App-logo-spin {
+.options-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.options-wrapper select {
+  background-color: transparent;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.options-wrapper button {
+  background-color: transparent;
+  border: yellow 1px solid;
+  border-radius: 5px;
+  color: yellow;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.options-wrapper label {
+  color: white;
+}
+
+.filters-wrapper li {
+  color: white;
+  text-decoration: none;
 }

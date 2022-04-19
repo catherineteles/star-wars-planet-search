@@ -20,93 +20,96 @@ function FiltersContainer() {
   const checkColumn = (element, filter) => element !== filter.column;
 
   return (
-    <div>
+    <div className="filters-wrapper">
       <input
         name="name-filter"
         value={ filterByName.name }
         onChange={ updateFilter }
         data-testid="name-filter"
       />
-      <select
-        value={ column }
-        onChange={ updateFilter }
-        name="column"
-        data-testid="column-filter"
-      >
-        {columnOptions.filter((element) => {
-          if (filterByNumericValues.length !== 0) {
-            return filterByNumericValues.every((filter) => checkColumn(element, filter));
-          }
-          return element;
-        }).map((element) => (
-          <option key={ element } value={ element }>{element}</option>
-        ))}
-      </select>
-      <select
-        value={ comparison }
-        onChange={ updateFilter }
-        name="comparison"
-        data-testid="comparison-filter"
-      >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-      <input
-        value={ value }
-        onChange={ updateFilter }
-        name="value"
-        data-testid="value-filter"
-        type="number"
-      />
-      <button
-        type="button"
-        onClick={ updateNumericFilter }
-        data-testid="button-filter"
-      >
-        Filtrar
-      </button>
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ clearNumericFilter }
-      >
-        Limpar Filtro
-      </button>
-      <select data-testid="column-sort" name="sortColumn" onChange={ updateFilter }>
-        {columnOptions.map((option, index) => (
-          <option key={ index } value={ option }>{ option }</option>
-        ))}
-      </select>
-      <label htmlFor="ASD">
-        Ascendente
-        <input
-          type="radio"
-          data-testid="column-sort-input-asc"
-          id="ASD"
-          value="ASD"
-          name="sortRadio"
+      <div className="options-wrapper">
+        <select
+          value={ column }
           onChange={ updateFilter }
-        />
-      </label>
-      <label htmlFor="DESC">
-        Descendente
-        <input
-          type="radio"
-          data-testid="column-sort-input-desc"
-          id="DESC"
-          value="DESC"
-          name="sortRadio"
+          name="column"
+          data-testid="column-filter"
+        >
+          {columnOptions.filter((element) => {
+            if (filterByNumericValues.length !== 0) {
+              return filterByNumericValues
+                .every((filter) => checkColumn(element, filter));
+            }
+            return element;
+          }).map((element) => (
+            <option key={ element } value={ element }>{element}</option>
+          ))}
+        </select>
+        <select
+          value={ comparison }
           onChange={ updateFilter }
+          name="comparison"
+          data-testid="comparison-filter"
+        >
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+        <input
+          value={ value }
+          onChange={ updateFilter }
+          name="value"
+          data-testid="value-filter"
+          type="number"
         />
-      </label>
-      <button
-        type="button"
-        onClick={ createSortFilter }
-        data-testid="column-sort-button"
-      >
-        Ordenar
-      </button>
+        <button
+          type="button"
+          onClick={ updateNumericFilter }
+          data-testid="button-filter"
+        >
+          Filtrar
+        </button>
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ clearNumericFilter }
+        >
+          Limpar Filtro
+        </button>
+        <select data-testid="column-sort" name="sortColumn" onChange={ updateFilter }>
+          {columnOptions.map((option, index) => (
+            <option key={ index } value={ option }>{ option }</option>
+          ))}
+        </select>
+        <label htmlFor="ASD">
+          Ascendente
+          <input
+            type="radio"
+            data-testid="column-sort-input-asc"
+            id="ASD"
+            value="ASD"
+            name="sortRadio"
+            onChange={ updateFilter }
+          />
+        </label>
+        <label htmlFor="DESC">
+          Descendente
+          <input
+            type="radio"
+            data-testid="column-sort-input-desc"
+            id="DESC"
+            value="DESC"
+            name="sortRadio"
+            onChange={ updateFilter }
+          />
+        </label>
+        <button
+          type="button"
+          onClick={ createSortFilter }
+          data-testid="column-sort-button"
+        >
+          Ordenar
+        </button>
+      </div>
       <div>
         { filterByNumericValues.length !== 0 && filterByNumericValues.map((filter) => (
           <li data-testid="filter" key={ filter.column }>

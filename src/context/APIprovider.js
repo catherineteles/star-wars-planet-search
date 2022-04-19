@@ -26,6 +26,13 @@ updateFilter = ({ target }) => {
 
 clearNumericFilter = () => this.setState({ filterByNumericValues: [] })
 
+removeNumericFilter = ({ target }) => {
+  const { filterByNumericValues } = this.state;
+  const { name } = target;
+  const newArray = filterByNumericValues.filter((filter) => filter.column !== name);
+  this.setState({ filterByNumericValues: newArray });
+}
+
 updateNumericFilter = () => {
   const { column, comparison, value } = this.state;
   const newFilter = {
@@ -60,6 +67,7 @@ render() {
         updateFilter: this.updateFilter,
         updateNumericFilter: this.updateNumericFilter,
         clearNumericFilter: this.clearNumericFilter,
+        removeNumericFilter: this.removeNumericFilter,
       } }
     >
       {children}

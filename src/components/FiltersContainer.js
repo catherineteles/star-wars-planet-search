@@ -13,6 +13,7 @@ function FiltersContainer() {
     filterByNumericValues,
     updateFilter,
     updateNumericFilter,
+    removeNumericFilter,
   } = useContext(APIContext);
 
   const checkColumn = (element, filter) => element !== filter.column;
@@ -39,11 +40,6 @@ function FiltersContainer() {
         }).map((element) => (
           <option key={ element } value={ element }>{element}</option>
         ))}
-        {/* <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option> */}
       </select>
       <select
         value={ comparison }
@@ -76,6 +72,20 @@ function FiltersContainer() {
       >
         Limpar Filtro
       </button>
+      <div>
+        { filterByNumericValues.length !== 0 && filterByNumericValues.map((filter) => (
+          <li data-testid="filter" key={ filter.column }>
+            {`${filter.column} ${filter.comparison} ${filter.value}`}
+            <button
+              onClick={ removeNumericFilter }
+              type="button"
+              name={ filter.column }
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </div>
     </div>
   );
 }

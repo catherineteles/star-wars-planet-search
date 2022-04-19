@@ -14,6 +14,7 @@ function FiltersContainer() {
     updateFilter,
     updateNumericFilter,
     removeNumericFilter,
+    createSortFilter,
   } = useContext(APIContext);
 
   const checkColumn = (element, filter) => element !== filter.column;
@@ -71,6 +72,40 @@ function FiltersContainer() {
         onClick={ clearNumericFilter }
       >
         Limpar Filtro
+      </button>
+      <select data-testid="column-sort" name="sortColumn" onChange={ updateFilter }>
+        {columnOptions.map((option, index) => (
+          <option key={ index } value={ option }>{ option }</option>
+        ))}
+      </select>
+      <label htmlFor="ASD">
+        Ascendente
+        <input
+          type="radio"
+          data-testid="column-sort-input-asc"
+          id="ASD"
+          value="ASD"
+          name="sortRadio"
+          onChange={ updateFilter }
+        />
+      </label>
+      <label htmlFor="DESC">
+        Descendente
+        <input
+          type="radio"
+          data-testid="column-sort-input-desc"
+          id="DESC"
+          value="DESC"
+          name="sortRadio"
+          onChange={ updateFilter }
+        />
+      </label>
+      <button
+        type="button"
+        onClick={ createSortFilter }
+        data-testid="column-sort-button"
+      >
+        Ordenar
       </button>
       <div>
         { filterByNumericValues.length !== 0 && filterByNumericValues.map((filter) => (

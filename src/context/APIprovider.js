@@ -12,7 +12,13 @@ class APIprovider extends Component {
       column: 'population',
       comparison: 'maior que',
       value: 0,
+      sortRadio: '',
+      sortColumn: '',
       filterByNumericValues: [],
+      order: {
+        column: '',
+        sort: '',
+      },
     };
   }
 
@@ -31,6 +37,11 @@ removeNumericFilter = ({ target }) => {
   const { name } = target;
   const newArray = filterByNumericValues.filter((filter) => filter.column !== name);
   this.setState({ filterByNumericValues: newArray });
+}
+
+createSortFilter = () => {
+  const { sortColumn, sortRadio } = this.state;
+  this.setState({ order: { column: sortColumn, sort: sortRadio } });
 }
 
 updateNumericFilter = () => {
@@ -68,6 +79,7 @@ render() {
         updateNumericFilter: this.updateNumericFilter,
         clearNumericFilter: this.clearNumericFilter,
         removeNumericFilter: this.removeNumericFilter,
+        createSortFilter: this.createSortFilter,
       } }
     >
       {children}

@@ -7,6 +7,7 @@ function PlanetTable() {
     requestPlanets,
     filterByName,
     filterByNumericValues,
+    order,
   } = useContext(APIContext);
 
   const handleFilter = (element) => element.name
@@ -33,6 +34,24 @@ function PlanetTable() {
     }
     return element;
   };
+
+  const handleSort = (a, b) => {
+    if (order.sort === 'ASD') {
+      if (b[order.column] === 'unknown') {
+        const negativeNumber = -1;
+        return negativeNumber;
+      }
+      return a[order.column] - b[order.column];
+    }
+    if (order.sort === 'DESC') {
+      if (b[order.column] === 'unknown') {
+        return 1;
+      }
+      return b[order.column] - a[order.column];
+    }
+    return a.name.localeCompare(b.name);
+  };
+
   // atualizar os planetas
   useEffect(() => {
     const updatePlanets = async () => {
@@ -64,9 +83,10 @@ function PlanetTable() {
         <tbody>
           {planets.lenght !== 0 && planets.filter(handleFilter)
             .filter(handleNumericFilter)
+            .sort(handleSort)
             .map((planet, index) => (
               <tr key={ index }>
-                <td>{ planet.name }</td>
+                <td data-testid="planet-name">{ planet.name }</td>
                 <td>{ planet.rotation_period }</td>
                 <td>{ planet.orbital_period }</td>
                 <td>{ planet.diameter }</td>

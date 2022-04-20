@@ -115,6 +115,7 @@ function FiltersContainer() {
           <li data-testid="filter" key={ filter.column }>
             {`${filter.column} ${filter.comparison} ${filter.value}`}
             <button
+              className="filter-btn"
               onClick={ removeNumericFilter }
               type="button"
               name={ filter.column }

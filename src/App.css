@@ -51,21 +51,29 @@ tr:hover {
 }
 
 .options-wrapper select {
-  background-color: transparent;
+  background-color: black;
   border-radius: 5px;
   color: white;
   margin-bottom: 10px;
   padding: 10px;
 }
 
-.options-wrapper button {
+.options-wrapper button, .filter-btn {
   background-color: transparent;
   border: yellow 1px solid;
   border-radius: 5px;
   color: yellow;
+}
+
+.options-wrapper button {
   margin-bottom: 10px;
   padding: 10px;
 }
+
+.filter-btn {
+  margin: 5px;
+}
+
 
 .options-wrapper label {
   color: white;

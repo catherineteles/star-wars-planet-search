@@ -8,6 +8,7 @@ function PlanetTable() {
     filterByName,
     filterByNumericValues,
     order,
+    updateMovieTitles,
   } = useContext(APIContext);
 
   const handleFilter = (element) => element.name
@@ -52,13 +53,18 @@ function PlanetTable() {
     return a.name.localeCompare(b.name);
   };
 
+  const createLines = (array) => array.map((movie, index) => (
+    <li key={ index }>{movie}</li>
+  ));
+
   // atualizar os planetas
   useEffect(() => {
     const updatePlanets = async () => {
       await requestPlanets();
+      await updateMovieTitles();
     };
     updatePlanets();
-  }, [requestPlanets]);
+  }, [requestPlanets, updateMovieTitles]);
 
   return (
     <main>
@@ -95,7 +101,7 @@ function PlanetTable() {
                 <td>{ planet.terrain }</td>
                 <td>{ planet.surface_water }</td>
                 <td>{ planet.population }</td>
-                <td>{ planet.films }</td>
+                <td>{ planet.films && createLines(planet.films) }</td>
                 <td>{ planet.created }</td>
                 <td>{ planet.edited }</td>
                 <td>{ planet.url }</td>

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import APIcontext from './APIcontext';
+import requestMovies from '../Helpers/getMovieTitles';
 
 class APIprovider extends Component {
   constructor() {
     super();
     this.state = {
       planets: [],
+      movieTitlesState: [],
       filterByName: { name: '' },
       error: '',
       column: 'population',
@@ -68,6 +70,33 @@ requestPlanets = async () => {
   }
 }
 
+updateMovieTitles = async () => {
+  const { planets } = this.state;
+  const copyPlanets = JSON.parse(JSON.stringify(planets));
+  copyPlanets.forEach(async (planet) => {
+    const movieTitles = await Promise.all(planet.films
+      .map((film) => requestMovies(film)));
+    this.setState((state) => ({
+      movieTitlesState: [...state.movieTitlesState, movieTitles],
+    }), () => {
+      const { movieTitlesState } = this.state;
+      planets.forEach((p, i) => {
+        p.films = movieTitlesState[i];
+      });
+    });
+  });
+}
+
+// createNewPlanets = () => {
+//   const { planets, movieTitlesState } = this.state;
+//   const copyPlanets = JSON.parse(JSON.stringify(planets));
+//   const updatePlanet = copyPlanets
+//     .forEach((planet, index) => {
+//       planet.films = movieTitlesState[index];
+//     });
+//   this.setState({ newPlanets: updatePlanet });
+// }
+
 render() {
   const { Provider } = APIcontext;
   const { children } = this.props;
@@ -80,6 +109,7 @@ render() {
         clearNumericFilter: this.clearNumericFilter,
         removeNumericFilter: this.removeNumericFilter,
         createSortFilter: this.createSortFilter,
+        updateMovieTitles: this.updateMovieTitles,
       } }
     >
       {children}

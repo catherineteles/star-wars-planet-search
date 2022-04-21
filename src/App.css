@@ -13,13 +13,16 @@ table {
   margin: auto;
   margin-top: 10px;
   overflow-x: scroll;
+  table-layout: fixed;
   width: 80%;
 }
 
 td, th {
   border: 1px solid #ddd;
+  height: 20px;
   padding: 10px;
   text-align: center;
+  width: 100px;
 }
 
 th {

@@ -8,6 +8,7 @@ class APIprovider extends Component {
     super();
     this.state = {
       planets: [],
+      next: 'https://swapi-trybe.herokuapp.com/api/planets/',
       movieTitlesState: [],
       filterByName: { name: '' },
       error: '',
@@ -60,10 +61,12 @@ updateNumericFilter = () => {
 
 requestPlanets = async () => {
   try {
-    const getPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
+    const { next } = this.state;
+    const getPlanets = await fetch(next);
     const data = await getPlanets.json();
     this.setState({
       planets: data.results,
+      next: data.next,
     });
   } catch (error) {
     this.setState({ error });
@@ -86,16 +89,6 @@ updateMovieTitles = async () => {
     });
   });
 }
-
-// createNewPlanets = () => {
-//   const { planets, movieTitlesState } = this.state;
-//   const copyPlanets = JSON.parse(JSON.stringify(planets));
-//   const updatePlanet = copyPlanets
-//     .forEach((planet, index) => {
-//       planet.films = movieTitlesState[index];
-//     });
-//   this.setState({ newPlanets: updatePlanet });
-// }
 
 render() {
   const { Provider } = APIcontext;

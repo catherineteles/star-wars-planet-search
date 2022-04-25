@@ -4,6 +4,7 @@ import APIContext from '../context/APIcontext';
 function PlanetTable() {
   const {
     planets,
+    next,
     requestPlanets,
     filterByName,
     filterByNumericValues,
@@ -64,7 +65,7 @@ function PlanetTable() {
       await updateMovieTitles();
     };
     updatePlanets();
-  }, [requestPlanets, updateMovieTitles]);
+  }, []);
 
   return (
     <main>
@@ -109,6 +110,14 @@ function PlanetTable() {
             ))}
         </tbody>
       </table>
+      <button
+        type="button"
+        disabled={ next === null }
+        className="more-btn"
+        onClick={ () => requestPlanets() }
+      >
+        Mais Planetas
+      </button>
     </main>
   );
 }

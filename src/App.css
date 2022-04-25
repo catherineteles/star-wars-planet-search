@@ -88,6 +88,12 @@ tr:hover {
   width: 30%;
 }
 
+.more-btn:disabled {
+  border: 1px solid red;
+  color: red;
+}
+
+
 .options-wrapper label {
   color: white;
 }
